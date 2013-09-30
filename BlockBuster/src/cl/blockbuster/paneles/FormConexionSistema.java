@@ -12,8 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-
-import org.jdesktop.layout.GroupLayout;
 import cl.blockbuster.objetos.DefObjetos;
 
 public class FormConexionSistema extends JFrame{
@@ -39,7 +37,7 @@ public class FormConexionSistema extends JFrame{
 		this.add(paneDatos, BorderLayout.CENTER);
 		this.add(paneControles, BorderLayout.SOUTH);
 		this.centrarVentana();
-		this.pack();
+		this.setSize(340, 355);
 	}
 	
 	
@@ -51,7 +49,7 @@ public class FormConexionSistema extends JFrame{
 				DefObjetos.constructorBorderPanel("", "Serif", 1, 11);
 		panelTitulo.setBorder(bordePanelTitulo);
 		layoutPanelTitulo.setAlignment(FlowLayout.CENTER);
-		titulo = DefObjetos.constructorLabel("Conexi—n Al Sistema", "Serif", 1, 13);
+		titulo = DefObjetos.constructorLabel("Conexi—n Al Sistema", "Serif", 1, 14);
 		panelTitulo.add(titulo);
 		return panelTitulo;
 	}
@@ -63,38 +61,40 @@ public class FormConexionSistema extends JFrame{
 				DefObjetos.constructorBorderPanel("", "Serif", 1, 11);
 		panelDatos.setBorder(bordePanelConexion);
 		
-		GroupLayout jPanegroupLayout = new GroupLayout(panelDatos);
-		panelDatos.setLayout(jPanegroupLayout);
-		lbusuario = DefObjetos.constructorLabel("UserName : ", "Serif", 1, 11);
+		lbusuario = DefObjetos.constructorLabel("UserName : ", "Serif", 1, 12);
 		usuario = DefObjetos.constructorJTextField(" ", "Serif", 1, 11);
-		lbpassword = DefObjetos.constructorLabel("Password : ", "Serif", 1, 11);
+		usuario.setColumns(15);
+		lbpassword = DefObjetos.constructorLabel("Password : ", "Serif", 1, 12);
 		password = DefObjetos.constructorPasswordField("Serif", 1, 11);
+		password.setColumns(15);
 			
-		jPanegroupLayout.setHorizontalGroup(
-				jPanegroupLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanegroupLayout.createSequentialGroup()
+		org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(panelDatos);
+		panelDatos.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
                 .add(33, 33, 33)
-                .add(jPanegroupLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(lbpassword)
-                    .add(lbusuario))
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(lbusuario)
+                    .add(lbpassword))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanegroupLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(password)
                     .add(usuario))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
-		jPanegroupLayout.setVerticalGroup(
-				jPanegroupLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanegroupLayout.createSequentialGroup()
-                .add(34, 34, 34)
-                .add(jPanegroupLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(71, 71, 71)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lbusuario)
                     .add(usuario, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
-                .add(jPanegroupLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(20, 20, 20)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lbpassword)
                     .add(password, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         
 		return panelDatos;
@@ -109,8 +109,8 @@ public class FormConexionSistema extends JFrame{
 		panelControles.setBorder(bordePanelControles);		
 		layoutPanelControles.setAlignment(FlowLayout.CENTER);
 		panelControles.setLayout(layoutPanelControles);
-		salir = DefObjetos.constructorButton("Aceptar", "Serif", 1, 11);
-		aceptar = DefObjetos.constructorButton("Salir", "Serif", 1, 11);
+		salir = DefObjetos.constructorButton("Aceptar", "Serif", 1, 12);
+		aceptar = DefObjetos.constructorButton("Salir", "Serif", 1, 12);
 		panelControles.add(salir);
 		panelControles.add(aceptar);
 		return panelControles;
