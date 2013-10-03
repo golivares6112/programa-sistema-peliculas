@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,7 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import cl.blockbuster.controladores.FuncAccionBotonesFormConn;
 import cl.blockbuster.objetos.DefObjetos;
+import cl.blockbuster.threads.ConsultaThread;
 
 public class FormConexionSistema extends JFrame{
 	
@@ -22,7 +27,8 @@ public class FormConexionSistema extends JFrame{
 	private JTextField usuario;
 	private JPasswordField password;
 	private JPanel paneTitulo, paneDatos, paneControles;
-	
+	private FuncAccionBotonesFormConn controladorBotones;
+	private ConsultaThread hiloconsulta;
 	public FormConexionSistema()
 	{
 		super(".:: Formulario de Conexi—n ::.");
@@ -36,8 +42,10 @@ public class FormConexionSistema extends JFrame{
 		this.add(paneTitulo, BorderLayout.NORTH);
 		this.add(paneDatos, BorderLayout.CENTER);
 		this.add(paneControles, BorderLayout.SOUTH);
-		this.centrarVentana();
+		hiloconsulta = new ConsultaThread();
+		hiloconsulta.execute();
 		this.setSize(340, 355);
+		this.centrarVentana();
 	}
 	
 	
@@ -62,12 +70,19 @@ public class FormConexionSistema extends JFrame{
 		panelDatos.setBorder(bordePanelConexion);
 		
 		lbusuario = DefObjetos.constructorLabel("UserName : ", "Serif", 1, 12);
-		usuario = DefObjetos.constructorJTextField(" ", "Serif", 1, 11);
+		usuario = DefObjetos.constructorJTextField("", "Serif", 1, 11);
 		usuario.setColumns(15);
 		lbpassword = DefObjetos.constructorLabel("Password : ", "Serif", 1, 12);
 		password = DefObjetos.constructorPasswordField("Serif", 1, 11);
 		password.setColumns(15);
-			
+		
+		password.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent evt) {
+            	passwordTeclaPresionada(evt);
+            }
+        });
+		
+		controladorBotones = new FuncAccionBotonesFormConn(usuario, password);	
 		org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(panelDatos);
 		panelDatos.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -110,9 +125,11 @@ public class FormConexionSistema extends JFrame{
 		layoutPanelControles.setAlignment(FlowLayout.CENTER);
 		panelControles.setLayout(layoutPanelControles);
 		salir = DefObjetos.constructorButton("Aceptar", "Serif", 1, 12);
-		aceptar = DefObjetos.constructorButton("Salir", "Serif", 1, 12);
+		aceptar = DefObjetos.constructorButton("Salir", "Serif", 1, 12); 
 		panelControles.add(salir);
 		panelControles.add(aceptar);
+		aceptar.addActionListener(controladorBotones);
+		salir.addActionListener(controladorBotones);
 		return panelControles;
 	}
 	
@@ -122,4 +139,10 @@ public class FormConexionSistema extends JFrame{
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation((screenSize.width - this.getWidth()) / 2, (screenSize.height - this.getHeight()) / 2);
 	}
+	
+	private void passwordTeclaPresionada(KeyEvent evt) 
+	{                                    
+		char car = evt.getKeyChar();
+		if((car<'0' || car>'9')) evt.consume();
+    }  
 }
